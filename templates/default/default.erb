@@ -1,0 +1,12 @@
+default menu.c32
+prompt 0
+timeout 300
+ONTIMEOUT <%= @default %>
+
+menu INCLUDE pxe.cfg
+
+<% @includes.each do |section,files| -%>
+  <% files.each do |file| -%>
+    menu  INCLUDE <%= section %>/pxelinux.cfg/<%= file %>
+  <% end -%>
+<% end -%>

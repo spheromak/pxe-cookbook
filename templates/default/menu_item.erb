@@ -1,0 +1,27 @@
+<% if @single_entry -%>
+DEFAULT menu.c32
+PROMPT 0
+
+MENU INCLUDE pxe.cfg
+<% end -%>
+
+
+LABEL <%= @name %>
+  MENU LABEL <%= @label %>
+<% unless @kernel.empty? -%>
+  kernel <%= @kernel %>
+<% end -%>
+<% unless @append.empty? -%>
+    append <%= @append %>
+<% end -%>
+<% unless @command.empty? -%>
+  <%= @command %>
+<% end -%>
+
+<% if @single_entry -%>
+menu INCLUDE pxelinux.cfg/default
+NOESCAPE 1
+TIMEOUT 100
+ONTIMEOUT <%= @name %>
+<% end -%>
+

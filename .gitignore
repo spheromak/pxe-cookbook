@@ -1,0 +1,8 @@
+metadata.json
+.swap
+.swp
+tags
+.tags
+.berkshelf
+.berksfile
+Berksfile.lock

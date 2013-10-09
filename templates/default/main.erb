@@ -1,0 +1,30 @@
+default menu.c32
+prompt 0
+timeout 300
+ONTIMEOUT Local
+
+MENU TITLE  PXE Server 
+
+menu INCLUDE pxe.cfg 
+
+MENU TITLE PXE Menu
+label local
+ MENU LABEL Boot Local Drive
+ LOCALBOOT 0
+ 
+
+<% @sections.each do |name| -%> 
+  MENU BEGIN <%= name %>
+  MENU TITLE <%= name %>
+    LABEL Previous
+    MENU LABEL Previous Menu
+    TEXT HELP
+    Return to previous menu
+    ENDTEXT
+    MENU EXIT
+    MENU SEPARATOR
+    menu INCLUDE <%= name %>/pxelinux.cfg/default 
+  MENU END
+<% end -%>
+
+
