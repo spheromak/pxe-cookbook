@@ -17,19 +17,10 @@
 # limitations under the License.
 #
 
-class Chef::Recipe
-  include Helpers::Repos
-
-  def mac_to_pxe(macaddr)
-    mac = "01-#{macaddr.gsub(":","-")}"
-  end
-
-end
 
 include_recipe 'tftp::server'
-repo_server = find_repo_servers.first
 
-tftp_dir = node[:tftp][:dir] 
+tftp_dir = node[:tftp][:dir]
 syslinux_dir = node[:syslinux][:dir]
 
 node[:pxe][:packages].each do |pkg|
@@ -39,7 +30,7 @@ end
 # setup root pxelinux and config dir
 %w/pxelinux.0 menu.c32 mboot.c32/.each do |booter|
   execute  "cp #{syslinux_dir}#{booter} #{tftp_dir}/#{booter}"  do
-    action :run 
+    action :run
     not_if {File.exists?("#{tftp_dir}/#{booter}")}
   end
 end
